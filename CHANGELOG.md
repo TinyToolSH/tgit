@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Added license disclaimer on source code;
 * Added first tgit README;
 * Added -c and -u as color and update flags, respectively;
+* Added code of conduct file;
+* Added contributing file;
+* Added github template files;
 
 ### Fixed
 
