@@ -38,7 +38,7 @@ list() {
     do
         cd $i
         if [[ "$(git rev-parse --git-dir)" == ".git" ]]; then
-            status=$(tgit_status $i $1)
+            status=$(tgit-status $i $1)
             name="${i/"$HOME/"/''}"
             list="$list\n[$status] $name"
         fi
