@@ -22,9 +22,9 @@ $ dmenu_tgit
 
 ## Instalation
 
-To install `tmenu` you can edit the `Makefile` to match your local setup (`tmenu` is installed into the `/usr/local/bin` by default).
+To install `tgit` you can edit the `Makefile` to match your local setup (`tgit` is installed into the `/usr/local/bin` by default).
 
-Afterwards enter the following command to install `tmenu` (if necessary as root).
+Afterwards enter the following command to install `tgit` (if necessary as root).
 
 ```bash
 sudo make install
