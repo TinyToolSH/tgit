@@ -1,4 +1,5 @@
 # `tgit`
+
 A simple script to list all the important repositories in your local system.
 
 ```
@@ -14,15 +15,26 @@ $ dmenu_tgit
 ```
 
 ## dependencies:
+
 - git
 - find
 - awk
 
+## Instalation
+
+To install `tgit` you can edit the `Makefile` to match your local setup (`tgit` is installed into the `/usr/local/bin` by default).
+
+Afterwards enter the following command to install `tgit` (if necessary as root).
+
+```bash
+sudo make install
+```
+
 # Team
 
 | <img src="https://github.com/Calebe94.png?size=200" alt="Edimar Calebe Castanho"> | <img src="https://github.com/gbgabo.png?size=200" alt="Gabriel Gaboardi"> |
-|:---------------------------------------------------------------------------------:|:-------------------------------------------------------------------------:|
-| [Edimar Calebe Castanho (Calebe94)](https://github.com/Calebe94)                  | [Gabriel Gaboardi (Gabo)](https://github.com/gbgabo)                      |
+| :-------------------------------------------------------------------------------: | :-----------------------------------------------------------------------: |
+|         [Edimar Calebe Castanho (Calebe94)](https://github.com/Calebe94)          |           [Gabriel Gaboardi (Gabo)](https://github.com/gbgabo)            |
 
 # License
 
