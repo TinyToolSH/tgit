@@ -4,15 +4,15 @@ main_prompt="Repositories"
 git_options="open\nstatus\ndiff\ncheckout"
 
 branches_menu(){
-    branches="$(cd $path && git branch -r)"
+    branches="$(cd "$path" && git branch -r)"
     branch=$(echo -e "$branches" | dmenu -i -p Checkout:)
-    x-terminal-emulator -e 'sh -c "cd '$path' && git '$option $branch'; $SHELL"'
+    x-terminal-emulator -e "sh -c "cd "$path" && git "$option $branch"; "$SHELL"""
 }
 
 options_menu(){
     [[ -n $repo ]] || return 1
     path="$HOME/$repo"
-    prompt="$(tgit_status $path) $repo"
+    prompt="$(tgit_status "$path") $repo"
     option=$(echo -e "$git_options" | dmenu -i -p "$prompt:")
     [[ -n $option ]] || return 1
     case "$option" in
@@ -20,10 +20,10 @@ options_menu(){
             # branches_menu
         ;;
         "open")
-            codium $path
+            codium "$path"
         ;;
         *)
-            x-terminal-emulator -e 'sh -c "cd '$path' && git '$option'; $SHELL"'
+            x-terminal-emulator -e "sh -c "cd "$path" && git "$option"; "$SHELL"""
         ;;
     esac
     return 0
