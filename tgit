@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 #This file is part of the TinyTools distribution (https://github.com/Calebe94/TinyTools).
 #Copyright (C)  TinyTools
@@ -19,35 +19,35 @@ repos=''
 ignore_regex='antigen|vim'
 
 update() {
-    repos=$(find $HOME -name ".git" | awk -F/ 'BEGIN { OFS = FS } NF{NF-=1};1')
-    [[ -n $ignore_regex ]] && repos=$(echo -e "$repos" | grep -E -v "$ignore_regex")
+    repos=$(find "$HOME" -name ".git" | awk -F/ 'BEGIN { OFS = FS } NF{NF-=1};1')
+    [ -n "$ignore_regex" ] && repos=$(printf '%b' "$repos" | grep -E -v "$ignore_regex")
     touch /tmp/repos.dat
-    echo -e "$repos" > /tmp/repos.dat
+    printf '%b' "$repos" > /tmp/repos.dat
 }
 
 get_repos(){
     if [ -f "/tmp/repos.dat" ]; then
-        echo -e "$(cat "/tmp/repos.dat")"
+        printf '%b' "$(cat "/tmp/repos.dat")"
     else
-        update && echo -e "$(cat "/tmp/repos.dat")"
+        update && printf '%b' "$(cat "/tmp/repos.dat")"
     fi
 }
 
 list() {
     for i in $repos
     do
-        cd $i
-        if [[ "$(git rev-parse --git-dir)" == ".git" ]]; then
-            status=$(tgit-status $i $1)
-            name="${i/"$HOME/"/''}"
+        cd "$i" || printf "git directory not found"
+        if [ "$(git rev-parse --git-dir)" = ".git" ]; then
+            status=$(tgit-status "$i" "$1")
+            name=$(printf '%s' "$i" | sed "s $HOME/  " )
             list="$list\n[$status] $name"
         fi
     done
     tmpfile=$(mktemp)
-    echo -e "$list" >> $tmpfile
-    list=$(column $tmpfile -t)
+    printf '%b' "$list" >> "$tmpfile"
+    list=$(column "$tmpfile" -t)
     rm "$tmpfile"
-    echo -e "$list"
+    printf '%b' "$list"
 }
 
 repos=$(get_repos)
@@ -56,7 +56,8 @@ while getopts uc option
 do
     case "${option}" in
         u) update && exit;;
-        c) echo -e "$(list -c)" && exit ;;
+        c) printf '%b\n' "$(list -c)" && exit ;;
+        *) usage; exit 1 ;;
     esac
 done
-echo -e "$(list)"
+printf '%b\n' "$(list)"
