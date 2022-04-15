@@ -1,20 +1,20 @@
-#!/bin/bash
+#!/bin/sh
 
 main_prompt="Repositories"
 git_options="open\nstatus\ndiff\ncheckout"
 
 branches_menu(){
     branches="$(cd "$path" && git branch -r)"
-    branch=$(echo -e "$branches" | dmenu -i -p Checkout:)
+    branch=$(print '%s' "$branches" | dmenu -i -p Checkout:)
     x-terminal-emulator -e "sh -c "cd "$path" && git "$option $branch"; "$SHELL"""
 }
 
 options_menu(){
-    [[ -n $repo ]] || return 1
+    [ -n "$repo" ] || return 1
     path="$HOME/$repo"
-    prompt="$(tgit_status "$path") $repo"
-    option=$(echo -e "$git_options" | dmenu -i -p "$prompt:")
-    [[ -n $option ]] || return 1
+    prompt="$(tgit-status "$path") $repo"
+    option=$(printf '%b' "$git_options" | dmenu -i -p "$prompt:")
+    [ -n "$option" ] || return 1
     case "$option" in
         "checkout")
             # branches_menu
@@ -31,9 +31,9 @@ options_menu(){
 
 repos_menu(){
     repo=""
-    repo=$(echo -e ">> UPDATE\n$(tgit)" | dmenu -i -p "$main_prompt": | awk '{print $2}')
-    [[ -n $repo ]] || exit
-    [[ $repo == "UPDATE" ]] && tgit -u && return 1
+    repo=$(printf '%b' ">> UPDATE\n$(tgit)" | dmenu -i -p "$main_prompt": | awk '{print $2}')
+    [ -n "$repo" ] || exit
+    [ "$repo" = "UPDATE" ] && tgit -u && return 1
     return 0
 }
 
