@@ -16,7 +16,7 @@
 #along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 repos=''
-ignore_regex='antigen|vim'
+ignore_regex='antigen|vim|.cargo'
 
 update() {
     repos=$(find $HOME -name ".git" | awk -F/ 'BEGIN { OFS = FS } NF{NF-=1};1')
